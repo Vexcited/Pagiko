@@ -1,0 +1,11 @@
+{
+  "name": "genpdf",
+  "devDependencies": {
+    "@types/bun": "^1.2.20",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "@cantoo/pdf-lib": "^2.4.3",
+    "yoga-layout": "^3.2.1"
+  }
+}
