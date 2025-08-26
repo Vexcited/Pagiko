@@ -367,7 +367,8 @@ export class Text extends Element {
   private _w?: number | "auto" | `${number}%`;
   private _font?: MemoryFont;
   private _fontSize = 16;
-  private _lineHeight?: number;
+  private _lineHeight = 1.2;
+  private _textAlign?: TextAlignment;
 
   constructor(private _value: string) {
     super();
@@ -378,7 +379,18 @@ export class Text extends Element {
     return this;
   }
 
-  lineHeight(lineHeight: number): Text {
+  /**
+   * @see https://tailwindcss.com/docs/line-height
+   */
+  leadingNone(): Text {
+    this._lineHeight = 1;
+    return this;
+  }
+
+  /**
+   * @see https://tailwindcss.com/docs/line-height
+   */
+  leading(lineHeight: number): Text {
     this._lineHeight = lineHeight;
     return this;
   }
@@ -426,7 +438,7 @@ export class Text extends Element {
             textWidth
           );
 
-          const lineHeight = this._lineHeight ?? this._fontSize * 1.2;
+          const lineHeight = this._fontSize * this._lineHeight;
           const fontHeight = font.heightAtSize(this._fontSize);
           const height = (lines.length - 1) * lineHeight + fontHeight;
 
@@ -463,7 +475,7 @@ export class Text extends Element {
       textWidth
     );
 
-    const lineHeight = this._lineHeight ?? this._fontSize * 1.2;
+    const lineHeight = this._fontSize * this._lineHeight;
     const fontHeight = font.heightAtSize(this._fontSize);
 
     // Estimate the baseline position - typically around 70-80% of font height from the bottom
