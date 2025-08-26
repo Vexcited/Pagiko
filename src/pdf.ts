@@ -263,19 +263,19 @@ export class Div extends Element {
     return this;
   }
 
-  alignItemsStart(): Div {
+  itemsStart(): Div {
     this._alignItems = Align.FlexStart;
     return this;
   }
-  alignItemsCenter(): Div {
+  itemsCenter(): Div {
     this._alignItems = Align.Center;
     return this;
   }
-  justifyContentStart(): Div {
+  justifyStart(): Div {
     this._justifyContent = Justify.FlexStart;
     return this;
   }
-  justifyContentCenter(): Div {
+  justifyCenter(): Div {
     this._justifyContent = Justify.Center;
     return this;
   }
