@@ -115,27 +115,38 @@ export class Page {
   private _h: number;
   private _elements: Array<Element> = [];
 
+  constructor() {
+    [this._w, this._h] = PageSizes.A4;
+  }
+
   /**
-   * Given in `pt`, you can modify the default size of the page
-   * by giving arguments.
-   *
-   * @example
-   * new Page(); // Defaults to A4 (21 x 29.7 cm)
-   * @example
-   * new Page(595.276, 841.8898); // A4's width and height given in `pt` as two paramaters.
-   * @example
-   * new Page([595.276, 841.8898]); // A4's width and height in `pt` given as an array.
+   * Defines the height of the page in pt.
+   * @default 841.8898 // A4
    */
-  constructor(size?: [w: number, h: number]);
-  constructor(w: number, h: number);
-  constructor(...args: Array<any>) {
-    if (Array.isArray(args[0])) {
-      [this._w, this._h] = args[0];
-    } else if (typeof args[0] === "number" && typeof args[1] === "number") {
-      [this._w, this._h] = args;
-    } else {
-      [this._w, this._h] = PageSizes.A4;
-    }
+  h(height: number): Page {
+    this._h = height;
+    return this;
+  }
+
+  /**
+   * Defines the width of the page in pt.
+   * @default 595.276 // A4
+   */
+  w(width: number): Page {
+    this._w = width;
+    return this;
+  }
+
+  /**
+   * Defines the width and height of the page in pt.
+   * @default [595.276, 841.8898] // A4
+   * @example
+   * page().size([595.276, 841.8898]);
+   * @example
+   * page().size(PageSizes.A4);
+   */
+  size(size: [w: number, h: number]) {
+    [this._w, this._h] = size;
   }
 
   child(element: Element): Page {
@@ -145,6 +156,7 @@ export class Page {
 
   render(page: PDFPage, fonts: Map<MemoryFont, PDFFont>): void {
     const root = Yoga.Node.create();
+    page.setSize(this._w, this._h);
 
     // Append all nodes to Yoga to calculate layout.
     for (let i = 0; i < this._elements.length; i++) {
@@ -158,7 +170,6 @@ export class Page {
     root.calculateLayout(this._w, this._h, Direction.LTR);
 
     // Once we have the layout with proper dimensions, we can draw to the PDF.
-    page.setSize(this._w, this._h);
     for (const element of this._elements) {
       element.draw(page, fonts);
     }
