@@ -1,7 +1,8 @@
 {
-  "name": "genpdf",
+  "name": "pagiko",
+  "version": "0.0.0",
   "devDependencies": {
-    "@types/bun": "^1.2.20",
+    "@types/bun": "^1.2.21",
     "typescript": "^5.9.2"
   },
   "dependencies": {
