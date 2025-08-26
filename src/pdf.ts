@@ -7,6 +7,7 @@ import {
   rgb as rgbToPdf,
   StandardFonts,
   breakTextIntoLines,
+  TextAlignment,
 } from "@cantoo/pdf-lib";
 import Yoga, {
   Align,
@@ -24,7 +25,7 @@ export class MemoryFont {
   public id: string = crypto.randomUUID();
   constructor(public value: Font) {}
 }
-export { StandardFonts };
+export { StandardFonts, PageSizes };
 
 const absoluteLeft = (node: Node): number => {
   let left = node.getComputedLeft();
@@ -176,20 +177,13 @@ export class Page {
   }
 }
 
-export class Element {
-  protected _node?: Node;
-
-  // NOTE: since this is a default element,
-  //       we don't really care about rendering something.
-  getLayoutNode(page: PDFPage, fonts: Map<MemoryFont, PDFFont>): Node {
-    this._node ??= Yoga.Node.create();
-    return this._node;
-  }
-
-  draw(page: PDFPage, fonts: Map<MemoryFont, PDFFont>): void {}
+export interface Element {
+  getLayoutNode(page: PDFPage, fonts: Map<MemoryFont, PDFFont>): Node;
+  draw(page: PDFPage, fonts: Map<MemoryFont, PDFFont>): void;
 }
 
-export class Div extends Element {
+export class Div implements Element {
+  private _node?: Node;
   private _elements: Array<Element> = [];
   private _w?: number | "auto" | `${number}%`;
   private _h?: number | "auto" | `${number}%`;
@@ -305,7 +299,7 @@ export class Div extends Element {
     return this;
   }
 
-  override getLayoutNode(page: PDFPage, fonts: Map<MemoryFont, PDFFont>): Node {
+  getLayoutNode(page: PDFPage, fonts: Map<MemoryFont, PDFFont>): Node {
     if (this._node) return this._node;
     const node = Yoga.Node.create();
     console.log("div: construct layout");
@@ -353,7 +347,7 @@ export class Div extends Element {
     return this._node;
   }
 
-  override draw(page: PDFPage, fonts: Map<MemoryFont, PDFFont>): void {
+  draw(page: PDFPage, fonts: Map<MemoryFont, PDFFont>): void {
     const node = this.getLayoutNode(page, fonts);
 
     page.drawRectangle({
@@ -374,16 +368,15 @@ export class Div extends Element {
   }
 }
 
-export class Text extends Element {
+export class Text implements Element {
+  private _node?: Node;
   private _w?: number | "auto" | `${number}%`;
   private _font?: MemoryFont;
   private _fontSize = 16;
   private _lineHeight = 1.2;
   private _textAlign?: TextAlignment;
 
-  constructor(private _value: string) {
-    super();
-  }
+  constructor(private _value: string) {}
 
   font(font: MemoryFont): Text {
     this._font = font;
@@ -472,7 +465,7 @@ export class Text extends Element {
     return this._node;
   }
 
-  override draw(page: PDFPage, fonts: Map<MemoryFont, PDFFont>): void {
+  draw(page: PDFPage, fonts: Map<MemoryFont, PDFFont>): void {
     const node = this.getLayoutNode(page, fonts);
     const font = this.getCurrentFont(page, fonts);
 
@@ -554,4 +547,8 @@ export const pdf = () => new PDF();
 export const page = () => new Page();
 export const div = () => new Div();
 export const text = (value: string) => new Text(value);
+
+/**
+ * Creates a font reference that'll be used across the PDF tree.
+ */
 export const font = (font: Font) => new MemoryFont(font);
