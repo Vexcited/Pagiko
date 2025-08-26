@@ -383,7 +383,22 @@ export class Text extends Element {
     return this;
   }
 
-  override getLayoutNode(page: PDFPage, fonts: Map<MemoryFont, PDFFont>): Node {
+  textLeft(): Text {
+    this._textAlign = TextAlignment.Left;
+    return this;
+  }
+
+  textCenter(): Text {
+    this._textAlign = TextAlignment.Center;
+    return this;
+  }
+
+  textRight(): Text {
+    this._textAlign = TextAlignment.Right;
+    return this;
+  }
+
+  getLayoutNode(page: PDFPage, fonts: Map<MemoryFont, PDFFont>): Node {
     if (this._node) return this._node;
     const node = Yoga.Node.create();
     console.log("text: construct layout");
@@ -461,6 +476,7 @@ export class Text extends Element {
     // Calculate node position
     const nodeTop = page.getHeight() - absoluteTop(node);
     const nodeHeight = node.getComputedHeight();
+    const boundsWidth = node.getComputedWidth();
 
     // Find vertical center of the node
     const nodeCenterY = nodeTop - nodeHeight / 2;
@@ -475,8 +491,17 @@ export class Text extends Element {
       const line = lines[i]!;
       const y = firstLineY - i * lineHeight;
 
+      let x = absoluteLeft(node);
+      const width = textWidth(line);
+
+      // prettier-ignore
+      x =  this._textAlign === TextAlignment.Left   ? x
+        : this._textAlign === TextAlignment.Center ? x + (boundsWidth / 2) - (width / 2)
+        : this._textAlign === TextAlignment.Right  ? x + boundsWidth - width
+        : x;
+
       page.drawText(line, {
-        x: absoluteLeft(node),
+        x,
         y,
         font,
         size: this._fontSize,
