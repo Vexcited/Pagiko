@@ -6,7 +6,7 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
-    "@cantoo/pdf-lib": "^2.4.3",
+    "@cantoo/pdf-lib": "^2.4.4",
     "yoga-layout": "^3.2.1"
   }
 }
