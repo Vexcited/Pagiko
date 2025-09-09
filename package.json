@@ -1,6 +1,46 @@
 {
   "name": "pagiko",
   "version": "0.0.0",
+  "description": "PDF generation library that feels like home. Make PDFs the way you build UIs thanks to Tailwind and Flexbox.",
+  "author": "Mikkel ALMONTE--RINGAUD <contact@vexcited.com> (https://github.com/Vexcited)",
+  "license": "MIT",
+  "homepage": "https://github.com/Vexcited/Pagiko",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vexcited/Pagiko.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Vexcited/Pagiko/issues"
+  },
+  "keywords": [
+    "pdf",
+    "pdf-lib",
+    "pdflib",
+    "tailwind",
+    "node",
+    "browser",
+    "pdfjs"
+  ],
+  "sideEffects": false,
+  "exports": {
+    "import": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "require": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup"
+  },
   "dependencies": {
     "@cantoo/pdf-lib": "^2.4.4",
     "yoga-layout": "^3.2.1"
