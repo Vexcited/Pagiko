@@ -119,3 +119,25 @@ page
   .child(div()) // Add an empty div to the page
   .child(text("")); // Add an empty text to the page
 ```
+
+## Contributing
+
+### Quick Start
+
+```sh
+git clone https://github.com/Vexcited/Pagiko && cd Pagiko
+
+bun install
+bun run ./examples/... # run any example!
+```
+
+### Release
+
+I am using [Mentor](https://github.com/Vexcited/Mentor) to automatically
+create releases for this package.
+
+```sh
+mentor
+```
+
+We're using semver for versioning.
