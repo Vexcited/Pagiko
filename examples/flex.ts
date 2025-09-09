@@ -1,7 +1,7 @@
 import { writeFile } from "node:fs/promises";
-import { pdf, page, div, text, StandardFonts, font } from "../src/pdf";
+import { div, font, Fonts, page, pdf, text } from "pagiko";
 
-const times = font(StandardFonts.TimesRoman);
+const times = font(Fonts.TimesRoman);
 
 const file = pdf()
   .author("Mikkel")
