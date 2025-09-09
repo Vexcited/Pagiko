@@ -1,12 +1,16 @@
 {
   "name": "pagiko",
   "version": "0.0.0",
-  "devDependencies": {
-    "@types/bun": "^1.2.21",
-    "typescript": "^5.9.2"
-  },
   "dependencies": {
     "@cantoo/pdf-lib": "^2.4.4",
     "yoga-layout": "^3.2.1"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.21",
+    "@vexcited/eslint-config": "^0.1.1",
+    "eslint": "^9.35.0",
+    "jiti": "^2.5.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2"
   }
 }
