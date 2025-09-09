@@ -1,6 +1,6 @@
 {
   "name": "pagiko",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "PDF generation library that feels like home. Make PDFs the way you build UIs thanks to Tailwind and Flexbox.",
   "author": "Mikkel ALMONTE--RINGAUD <contact@vexcited.com> (https://github.com/Vexcited)",
   "license": "MIT",
