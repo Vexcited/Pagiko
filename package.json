@@ -1,6 +1,6 @@
 {
   "name": "pagiko",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "PDF generation library that feels like home. Make PDFs the way you build UIs thanks to Tailwind and Flexbox.",
   "author": "Mikkel ALMONTE--RINGAUD <contact@vexcited.com> (https://github.com/Vexcited)",
   "license": "MIT",
@@ -46,10 +46,12 @@
     "yoga-layout": "^3.2.1"
   },
   "devDependencies": {
+    "@swc/core": "^1.13.5",
     "@types/bun": "^1.2.21",
     "@vexcited/eslint-config": "^0.1.1",
     "eslint": "^9.35.0",
     "jiti": "^2.5.1",
+    "terser": "^5.44.0",
     "tsup": "^8.5.0",
     "typescript": "^5.9.2"
   }
