@@ -155,6 +155,12 @@ export class Page {
     return this;
   }
 
+  /**
+   * Calculate the layout and draw elements in the page.
+   * Internal only, you must not use the function.
+   *
+   * @internal
+   */
   render(page: PDFPage, fonts: Map<MemoryFont, PDFFont>): void {
     const root = Yoga.Node.create();
     page.setSize(this._w, this._h);
