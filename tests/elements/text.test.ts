@@ -147,15 +147,6 @@ describe("Text", () => {
     });
   });
 
-  const mockPDFPage = {
-    doc: {
-      defaultWordBreaks: /\s/g
-    },
-    drawText: jest.fn(() => {}),
-    getFont: jest.fn(() => [mockPDFFont]),
-    getHeight: jest.fn(() => 800)
-  };
-
   describe("draw", () => {
     test("should call drawText on page", () => {
       const textElement = text("Hello World");
